@@ -1,0 +1,114 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { providers, categories, getProvidersByCategory } from '~/data/providers';
+import type { Provider } from '~/data/providers';
+
+export function getStaticPaths() {
+  return providers.map((provider) => ({
+    params: { slug: provider.slug },
+    props: { provider },
+  }));
+}
+
+interface Props {
+  provider: Provider;
+}
+
+const { provider } = Astro.props;
+
+const categoryLabel = categories.find((c) => c.slug === provider.category)?.label ?? provider.category;
+
+const relatedProviders = getProvidersByCategory(provider.category).filter((p) => p.slug !== provider.slug);
+---
+
+<Layout metadata={{ title: `${provider.business} | Beau Monde Salon Suites` }}>
+  <!-- Provider Hero -->
+  <section class="pt-24 pb-16 md:pt-32 md:pb-24 bg-[rgb(250_248_245)]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <!-- Photo -->
+        <div class="relative">
+          <div class="aspect-[3/4] overflow-hidden rounded-sm">
+            <img
+              src={provider.image}
+              alt={provider.name}
+              class="w-full h-full object-cover"
+              loading="eager"
+            />
+          </div>
+          <!-- Decorative accent -->
+          <div class="absolute -bottom-4 -right-4 w-full h-full border-2 border-[rgb(139_169_181)] rounded-sm -z-10"></div>
+        </div>
+
+        <!-- Info -->
+        <div>
+          <p class="text-sm tracking-[0.2em] uppercase text-[rgb(139_169_181)] mb-2">{categoryLabel}</p>
+          <h1 class="font-script text-5xl md:text-6xl text-[rgb(74_103_115)] mb-2">
+            {provider.name}
+          </h1>
+          {provider.business !== provider.name && (
+            <p class="font-serif text-2xl text-muted mb-6">{provider.business}</p>
+          )}
+
+          <p class="text-muted font-serif text-lg leading-relaxed mb-8">
+            {provider.description}
+          </p>
+
+          <!-- Services -->
+          <div class="mb-8">
+            <h3 class="font-serif text-lg font-semibold text-[rgb(74_103_115)] mb-3">Services</h3>
+            <div class="flex flex-wrap gap-2">
+              {provider.services.map((service) => (
+                <span class="bg-[rgb(139_169_181)]/15 text-[rgb(74_103_115)] text-sm font-serif px-4 py-1.5 rounded-full">
+                  {service}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <!-- Book Button -->
+          {provider.bookingUrl && (
+            <a
+              href={provider.bookingUrl}
+              class="inline-block bg-[rgb(139_169_181)] hover:bg-[rgb(109_139_151)] text-white font-serif text-lg tracking-wider px-10 py-3 rounded-sm transition-colors"
+            >
+              Schedule Now
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Related Providers -->
+  {relatedProviders.length > 0 && (
+    <section class="py-16 md:py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6">
+        <h2 class="font-script text-3xl md:text-4xl text-[rgb(139_169_181)] text-center mb-10">
+          More {categoryLabel} Professionals
+        </h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+          {relatedProviders.map((rp) => (
+            <a
+              href={`/providers/${rp.slug}`}
+              class="group relative aspect-square overflow-hidden rounded-sm"
+            >
+              <img
+                src={rp.image}
+                alt={rp.name}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-[rgb(74_103_115)]/0 group-hover:bg-[rgb(74_103_115)]/70 transition-all duration-300 flex items-center justify-center">
+                <div class="text-white text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-2">
+                  <p class="font-serif font-semibold">{rp.name}</p>
+                  {rp.business !== rp.name && <p class="text-sm text-white/80 mt-1">{rp.business}</p>}
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+</Layout>

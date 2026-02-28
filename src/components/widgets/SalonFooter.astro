@@ -1,0 +1,56 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+
+<footer class="bg-[rgb(74_103_115)] text-white not-prose">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-center">
+      <!-- Social Links -->
+      <div class="flex flex-col items-center md:items-start gap-4">
+        <div class="flex gap-4">
+          <a
+            href="https://www.facebook.com/beaumondesalonsuites/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-white/80 hover:text-white tracking-[0.2em] text-sm uppercase transition-colors"
+          >
+            Facebook
+          </a>
+        </div>
+        <div class="flex gap-4">
+          <a
+            href="https://www.instagram.com/beaumondesalonsuites/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-white/80 hover:text-white tracking-[0.2em] text-sm uppercase transition-colors"
+          >
+            Instagram
+          </a>
+        </div>
+      </div>
+
+      <!-- Center Logo / Safe Space -->
+      <div class="flex flex-col items-center gap-4">
+        <div class="text-3xl font-script">Beau Monde</div>
+        <div class="text-sm tracking-[0.3em] uppercase">Salon Suites</div>
+      </div>
+
+      <!-- Address -->
+      <div class="flex flex-col items-center md:items-end">
+        <a
+          href="https://www.google.com/maps/dir//300+S+Main+St+Suite+132,+Holly+Springs,+NC+27540"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-white/80 hover:text-white text-sm tracking-wide underline underline-offset-4 transition-colors"
+        >
+          300 S Main Street, Ste 132<br />Holly Springs, NC 27540
+        </a>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="mt-10 pt-6 border-t border-white/20 text-center text-sm text-white/60">
+      &copy; {new Date().getFullYear()} Beau Monde Salon Suites. All rights reserved.
+    </div>
+  </div>
+</footer>
