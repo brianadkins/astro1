@@ -22,8 +22,7 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
   hasExternalScripts ? (Array.isArray(items) ? items.map((item) => item()) : [items()]) : [];
 
 export default defineConfig({
-  site: 'https://brianadkins.github.io',
-  base: '/astro1',
+  site: 'https://bm.adkinsweb.com',
   output: 'static',
 
   integrations: [
